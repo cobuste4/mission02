@@ -74,6 +74,10 @@ public class DoublyLinkedList<E> implements List<E> {
             return null;
         }
         Node<E> temp = head;
+        if (head.getNext() == null){
+            size--;
+            return head.getData();
+        }
         head = head.getNext();
         head.setPrev(null);
         temp.setNext(null);
@@ -105,10 +109,10 @@ public class DoublyLinkedList<E> implements List<E> {
                 for (int i = 0; i < index - 1; i++) {
                     temp = temp.getNext();
                 }
-                toInsert.setNext(temp.getNext());
-                toInsert.setPrev(temp.getPrev());
-                temp.setPrev(toInsert);
-                temp = toInsert.getPrev();
+                Node<E> after = temp.getNext();
+                toInsert.setPrev(temp);
+                toInsert.setNext(after);
+                after.setPrev(toInsert);
                 temp.setNext(toInsert);
                 size++;
             }
@@ -122,7 +126,7 @@ public class DoublyLinkedList<E> implements List<E> {
             return null;
         }
         Node<E> toRemove = head;
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < index ; i++) {
             toRemove = toRemove.getNext();
         }
         // set the PREV nodes next to the NEXT node
@@ -142,7 +146,7 @@ public class DoublyLinkedList<E> implements List<E> {
             return null;
         }
         Node<E> toReturn = head;
-        for (int i = 0; i < index; i++){
+        for (int i = 0; i < index; i++) {
             toReturn = toReturn.getNext();
         }
         return toReturn.getData();

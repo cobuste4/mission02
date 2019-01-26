@@ -5,6 +5,7 @@ import edu.isu.cs.cs3308.structures.impl.LinkedStack;
 
 /**
  * Stack Applications
+ *
  * @author Isaac Griffith
  */
 public class Driver {

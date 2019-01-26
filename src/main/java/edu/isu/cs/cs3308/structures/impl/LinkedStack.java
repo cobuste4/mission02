@@ -15,7 +15,7 @@ public class LinkedStack<E> implements Stack<E> {
     private DoublyLinkedList<E> DLL;
 
     // Constructor
-    public LinkedStack(){
+    public LinkedStack() {
         DLL = new DoublyLinkedList<>();
     }
 
@@ -48,17 +48,40 @@ public class LinkedStack<E> implements Stack<E> {
 
     @Override
     public void transfer(Stack<E> to) {
-
+        if (to != null) {
+            int sz = this.size();
+            for (int i = 0; i < sz; i++) {
+                E temp = this.pop();
+                to.push(temp);
+            }
+        }
     }
 
     @Override
     public void reverse() {
-
+        LinkedStack<E> reversed = new LinkedStack<>();
+        LinkedStack<E> notReversed = new LinkedStack<>();
+        this.transfer(reversed);
+        reversed.transfer(notReversed);
+        notReversed.transfer(this);
     }
 
     @Override
     public void merge(Stack<E> other) {
-
+        if (other != null) {
+            // Take other and add it to BOTTOM of "this" without emptying other
+            LinkedStack<E> tempRev = new LinkedStack<>();
+            LinkedStack<E> tempOther = new LinkedStack<>();
+            this.transfer(tempRev);
+            int sz = other.size();
+            for (int i = 0; i < sz; i++) {
+                E temp = other.pop();
+                tempRev.push(temp);
+                tempOther.push(temp);
+            }
+            tempRev.transfer(this);
+            tempOther.transfer(other);
+        }
     }
 
     @Override
